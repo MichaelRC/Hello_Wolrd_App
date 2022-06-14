@@ -47,7 +47,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 
 	//find anything that ends in .page.gohtml (* is wildcard)
-	pages, err := filepath.Glob("./template/*.page.gohtml")
+	pages, err := filepath.Glob("./templates/*.page.gohtml")
 	if err != nil {
 		log.Println("Error CTC 1", err)
 		return myCache, err
@@ -65,7 +65,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 		}
 
 		//check to see if there are any layouts that match this template
-		matches, err := filepath.Glob("./template/*.layout.gohtml")
+		matches, err := filepath.Glob("./templates/*.layout.gohtml")
 		if err != nil {
 			log.Println("Error CTC 3", err)
 			return myCache, err
