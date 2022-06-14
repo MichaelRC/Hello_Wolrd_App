@@ -23,7 +23,7 @@ func NewTemplates(a *config.AppConfig) {
 
 //RenderTemplate renders templates using html/template
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
-
+	
 	var tc map[string]*template.Template
 
 	if app.UseCache {
