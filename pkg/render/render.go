@@ -17,6 +17,9 @@ var functions = template.FuncMap{}
 //RenderTemplate renders templates using html/template
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
+	// get the emplate cache from the app config
+	
+	
 	tc, err := CreateTemplateCache()
 	if err != nil {
 		//closes the program and logs the error
