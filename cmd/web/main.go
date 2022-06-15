@@ -36,6 +36,5 @@ func main() {
 
 	//prints to the console to make notify that program is running.
 	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
-
 	_ = http.ListenAndServe(portNumber, nil)
 }

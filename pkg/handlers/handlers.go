@@ -28,10 +28,10 @@ func NewHandlers(r *Repository) {
 
 //Home is the home page handler
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home.page.html")
+	render.RenderTemplate(w, "home.page.gohtml")
 }
 
 //About is the about page handler.
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about.page.html")
+	render.RenderTemplate(w, "about.page.gohtml")
 }
