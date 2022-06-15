@@ -22,12 +22,19 @@ func main() {
 	}
 
 	app.TemplateCache = tc
+	app.UseCache = false
 
-	http.HandleFunc("/", handlers.Home)
-	http.HandleFunc("/about", handlers.About)
+	repo := handlers.NewRepo(&app)
+	handlers.NewHandlers(repo)
+
+	//give our render access to app config
+	//using '&' as a referance to a pointer
+	render.NewTemplates(&app)
+
+	http.HandleFunc("/", handlers.Repo.Home)
+	http.HandleFunc("/about", handlers.Repo.About)
 
 	//prints to the console to make notify that program is running.
 	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
-
 	_ = http.ListenAndServe(portNumber, nil)
 }
