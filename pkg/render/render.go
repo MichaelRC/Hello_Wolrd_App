@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github/MRC/firstgoweb/pkg/config"
+	"github/MRC/firstgoweb/pkg/handlers"
 	"html/template"
 	"log"
 	"net/http"
@@ -22,7 +23,7 @@ func NewTemplates(a *config.AppConfig) {
 }
 
 //RenderTemplate renders templates using html/template
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *handlers.TemplateData) {
 	
 	var tc map[string]*template.Template
 
@@ -40,7 +41,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	buf := new(bytes.Buffer)
 
-	_ = t.Execute(buf, nil)
+	_ = t.Execute(buf, td)
 
 	_, err := buf.WriteTo(w)
 	if err != nil {
