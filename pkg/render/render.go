@@ -4,26 +4,27 @@ import (
 	"bytes"
 	"fmt"
 	"github/MRC/firstgoweb/pkg/config"
+	"github/MRC/firstgoweb/pkg/models"
 	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
 )
 
-//A map of fuctions that can be used
-//not built into the template 'language'
-//but Go allows us to pass them in and use them this way.
+// A map of fuctions that can be used
+// not built into the template 'language'
+// but Go allows us to pass them in and use them this way.
 var functions = template.FuncMap{}
 var app *config.AppConfig
 
-//NewTemplates sets the config for the template package
+// NewTemplates sets the config for the template package
 func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-//RenderTemplate renders templates using html/template
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
-	
+// RenderTemplate renders templates using html/template
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
+
 	var tc map[string]*template.Template
 
 	if app.UseCache {
@@ -40,7 +41,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	buf := new(bytes.Buffer)
 
-	_ = t.Execute(buf, nil)
+	_ = t.Execute(buf, td)
 
 	_, err := buf.WriteTo(w)
 	if err != nil {
