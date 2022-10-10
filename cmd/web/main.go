@@ -31,12 +31,8 @@ func main() {
 	//using '&' as a referance to a pointer
 	render.NewTemplates(&app)
 
-	//http.HandleFunc("/", handlers.Repo.Home)
-	//http.HandleFunc("/about", handlers.Repo.About)
-
 	//prints to the console to make notify that program is running.
 	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
-	//_ = http.ListenAndServe(portNumber, nil)
 
 	srv := &http.Server{
 		Addr:    portNumber,
