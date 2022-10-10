@@ -5,14 +5,24 @@ import (
 	"github/MRC/firstgoweb/pkg/handlers"
 	"net/http"
 
-	"github.com/bmizerany/pat"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
+// routes() uses the chi router for Golang HTTP services
 func routes(app *config.AppConfig) http.Handler {
-	mux := pat.New()
+	//create NewRouter and store in variable mux
+	mux := chi.NewRouter()
 
-	mux.Get("/", http.HandlerFunc(handlers.Repo.Home))
-	mux.Get("/about", http.HandlerFunc(handlers.Repo.About))
+	/* Add middleware */
 
+	//Revoverer restart program after panic and logs info
+	mux.Use(middleware.Recoverer)
+
+	/*mux.Get retreaves the template of the page to use */
+	mux.Get("/", handlers.Repo.Home)
+	mux.Get("/about", handlers.Repo.About)
+
+	//return what is stored in mux
 	return mux
 }
