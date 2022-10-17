@@ -1,22 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
-
 	"github.com/justinas/nosurf"
 )
 
-// Referance Middle Code (not being used)
-func WriteToConsole(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Hit the page")
-		next.ServeHTTP(w, r)
-	})
-}
-
 /*
-NoSurf creates a new CSRFToken for each visitor as a cookie
+NoSurf adds CSRF protection to all POST requests
 
 	Includes peramiters for use using the nosurf package
 */
@@ -28,9 +18,14 @@ func NoSurf(next http.Handler) http.Handler {
 	csrfHandler.SetBaseCookie(http.Cookie{
 		HttpOnly: true,
 		Path:     "/",
-		Secure:   false,
+		Secure:   app.InProduction,
 		SameSite: http.SameSiteLaxMode,
 	})
 
 	return csrfHandler
+}
+
+// SessonLoad loads and saves the session on every request
+func SessionLoad(next http.Handler) http.Handler {
+	return session.LoadAndSave(next)
 }

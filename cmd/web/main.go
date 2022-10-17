@@ -7,14 +7,33 @@ import (
 	"github/MRC/firstgoweb/pkg/render"
 	"log"
 	"net/http"
+	"time"
+
+	"github.com/alexedwards/scs/v2"
 )
 
 const portNumber = ":8080"
 
+var app config.AppConfig
+var session *scs.SessionManager
+
 // main is the main application function
 func main() {
-	//Websites pages
-	var app config.AppConfig
+	//change this to true when in production
+	app.InProduction = false //<---!!!
+
+	//declaring the session
+	session = scs.New()
+	//how long the session will last (24 hours)
+	session.Lifetime = 24 * time.Hour
+	//session will persist even when browser is closed
+	session.Cookie.Persist = true
+	//set how strict which site this cookie applies to
+	session.Cookie.SameSite = http.SameSiteLaxMode
+	//this is to make sure cookies are secured with HTTPS
+	session.Cookie.Secure = app.InProduction
+
+	app.Session = session
 
 	tc, err := render.CreateTemplateCache()
 	if err != nil {

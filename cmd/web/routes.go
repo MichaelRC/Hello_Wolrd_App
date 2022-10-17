@@ -19,6 +19,7 @@ func routes(app *config.AppConfig) http.Handler {
 	//Revoverer restart program after panic and logs info
 	mux.Use(middleware.Recoverer)
 	mux.Use(NoSurf)
+	mux.Use(SessionLoad)
 
 	/*mux.Get retreaves the template of the page to use */
 	mux.Get("/", handlers.Repo.Home)
