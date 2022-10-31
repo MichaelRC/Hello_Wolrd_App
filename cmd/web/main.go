@@ -19,10 +19,9 @@ var session *scs.SessionManager
 
 // main is the main application function
 func main() {
-	//change this to true when in production
-	app.InProduction = false //<---!!!
+	app.InProduction = false //<---!!!change this to true when in production
 
-	//declaring the session
+	//starting a new session
 	session = scs.New()
 	//how long the session will last (24 hours)
 	session.Lifetime = 24 * time.Hour
